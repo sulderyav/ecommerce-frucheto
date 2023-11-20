@@ -1,0 +1,29 @@
+version: '3.3'
+services:
+  wordpress:
+    image: wordpress:latest
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER:  sulderyav
+      WORDPRESS_DB_PASSWORD: root
+      WORDPRESS_DB_NAME: itiecommerce
+    volumes:
+      - ./src/themes:/var/www/html/wp-content/themes
+      - ./src/plugins:/var/www/html/wp-content/plugins
+      - ./src/uploads:/var/www/html/wp-content/uploads
+  
+  mysql:
+    image: mysql:5.7
+    restart: always
+    ports:
+      - "4306:3306"
+    environment:
+      MYSQL_DATABASE: itiecommerce
+      MYSQL_USER: sulderyav
+      MYSQL_PASSWORD: root
+      MYSQL_RANDOM_ROOT_PASSWORD: root
+    volumes:
+      - ./mysql_data:/var/lib/mysql
